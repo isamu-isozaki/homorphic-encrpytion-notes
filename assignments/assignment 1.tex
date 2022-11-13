@@ -1,0 +1,403 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{program}
+\usepackage{mathtools}
+\usepackage{float}
+\usepackage{fancyvrb}
+\usepackage{amsfonts}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\begin{document}
+1. $L^2(\mathbb{Z}_n)$ is a ring of n dimensional vectors where each element is complex.
+
+$*$ is defined as convolution which is
+\begin{equation}
+	(f*g)(k)=\sum_{i+j \equiv k \mod n} f(i)g(j)
+\end{equation}
+Now, let us prove for f, g, j that they are associative
+
+our theorem is
+\begin{equation}
+	(f*g)*j = f*(g*j)
+\end{equation}
+on the right hand side, let us say we have a number k where for each group in t groups of indices in f, g, and j it is equivalent to the sum mod n. We will show these indices as $(i_0, i_1, i_2), (i_3, i_4, i_5),....(i_{3t}, i_{3t+1}, i_{3t+2})$. So the sum of $i_{3m}+i_{3m+1}+i_{3m+2} \equiv k (\mod n)$ for all $m\in \mathbb{Z}$ from 0 to $3t+2$.
+
+Now, on the rhs, we do $f*g$ then on index $i_{3m}+i_{3m+1} \mod n$ we would have a sum of $f(i_{3m})g(i_{3m+1})$ that maps to that index. Now, when we convolve this by j, since 
+\begin{equation}
+	i_{3m}+i_{3m+1} \mod n + i_{3m+2} \equiv k \mod n
+\end{equation}
+we'll have the sum of all $f(i_{3m})g(i_{3m+1})j(i_{3m+2})$ mapping to index k. We can do the same argument on rhs using $i_{3m+1}+i_{3m+2} \mod n$. Thus, associativity holds.
+
+2.
+
+Given $a=(a_0, a_1, a_2)$ and $b=(b_0, b_1, b_2)$, $a*b$ is
+\begin{equation}
+	(a_0b_0+a_2b_1+a_1b_2, a_1b_0+a_0b_1+a_2b_2, a_2b_0+a_1b_1+a_0b_2)
+\end{equation}
+
+Now, we can make a matrix multiplication to produce this result as so
+
+\begin{equation}
+	\begin{pmatrix}
+		a_0 & a_2 & a_1 \\
+		a_1 & a_0 & a_2 \\
+		a_2 & a_1 & a_0
+	\end{pmatrix}
+	\begin{pmatrix}
+		b_0 \\
+		b_1 \\
+		b_2
+	\end{pmatrix}
+\end{equation}
+
+3.
+
+We can make the above matrix by
+
+\begin{equation}
+	a_0\begin{pmatrix}
+		1 & 0 & 0 \\
+		0 & 1 & 0 \\
+		0 & 0 & 1
+	\end{pmatrix}
++a_1\begin{pmatrix}
+	0 & 0 & 1 \\
+	1 & 0 & 0 \\
+	0 & 1 & 0
+\end{pmatrix} + a_2
+\begin{pmatrix}
+	0 & 1 & 0 \\
+	0 & 0 & 1 \\
+	1 & 0 & 0
+\end{pmatrix}
+\end{equation}
+
+4.
+
+Given $\omega = e^{\dfrac{2\pi i}{n}}$, the fourier matrix $F_3$ is(in 3x3)
+\begin{equation}
+	\begin{pmatrix}
+		1 & 1 & 1 \\
+		1 & \omega & \omega^2 \\
+		1& \omega^2 & \omega^4
+	\end{pmatrix}
+\end{equation}
+This written in terms of e is
+\begin{equation}
+	\begin{pmatrix}
+		1 & 1 & 1 \\
+		1 & e^{\dfrac{2\pi i}{3}} & e^{2\dfrac{2\pi i}{3}} \\
+		1& e^{2\dfrac{2\pi i}{3}} & e^{4\dfrac{2\pi i}{3}}
+	\end{pmatrix}=
+	\begin{pmatrix}
+		1 & 1 & 1 \\
+		1 & e^{\dfrac{2\pi i}{3}} & e^{\dfrac{\pi i}{3}} \\
+		1& e^{\dfrac{\pi i}{3}} & e^{\dfrac{2\pi i}{3}}
+	\end{pmatrix}
+\end{equation}
+Now $F^{*}_3$ is
+\begin{equation}
+	\begin{pmatrix}
+		1 & 1 & 1 \\
+		1 & e^{\dfrac{-2\pi i}{3}} & e^{2\dfrac{-2\pi i}{3}} \\
+		1& e^{2\dfrac{-2\pi i}{3}} & e^{4\dfrac{-2\pi i}{3}}
+	\end{pmatrix}=
+	\begin{pmatrix}
+	1 & 1 & 1 \\
+	1 & e^{\dfrac{\pi i}{3}} & e^{\dfrac{2\pi i}{3}} \\
+	1& e^{\dfrac{2\pi i}{3}} & e^{\dfrac{\pi i}{3}}
+	\end{pmatrix}
+\end{equation}
+Now when we multiply along the diagonal, it is pretty clear that we get 3s. But what about the other locations? Interestingly, they all seem to cancel out. For example, if we are summing with the one vectors, along any column or row except the diagonal, the sum is always 0 as the complex parts cancel out and the real part for both cancel out with one too as each have a -0.5 component.
+
+If we are not multiplying by the one vector then we get the same situation as above regardless. I don't think I can prove this in the general case but it turns out when you multiply them you get 3 times the identity.
+
+5. The obvious case is $S_3=D_3=I$. But I don't think that's the intention.
+Let us test out with
+\begin{equation}
+	\begin{pmatrix}
+		0 & 1 & 0 \\
+		0 & 0 & 1 \\
+		1 & 0 & 0
+	\end{pmatrix}
+\end{equation}
+This will result in
+
+\begin{equation}
+	\begin{pmatrix}
+		1 & 1 & 1 \\
+		\omega^2 & 1 & \omega \\
+		\omega^4 & 1 & \omega^2
+	\end{pmatrix}
+\end{equation}
+Now, as $FS=DF$, let's multiply both sides by $1/3F*$ then we have
+$D=FSF^{-1}$. This is the same as
+
+\begin{align}
+	&\dfrac{1}{3}
+	\begin{pmatrix}
+		1 & 1 & 1 \\
+	e^{2\dfrac{2\pi i}{3}} &	1 & e^{\dfrac{2\pi i}{3}}  \\
+	e^{4\dfrac{2\pi i}{3}}&	1& e^{2\dfrac{2\pi i}{3}}
+	\end{pmatrix}
+	\begin{pmatrix}
+		1 & 1 & 1 \\
+		1 & e^{\dfrac{\pi i}{3}} & e^{\dfrac{2\pi i}{3}} \\
+		1& e^{\dfrac{2\pi i}{3}} & e^{\dfrac{\pi i}{3}}
+	\end{pmatrix}\\
+&=\dfrac{1}{3}
+\begin{pmatrix}
+	1 & 1 & 1 \\
+	e^{\dfrac{\pi i}{3}} &	1 & e^{\dfrac{2\pi i}{3}}  \\
+	e^{\dfrac{2\pi i}{3}}&	1& e^{\dfrac{\pi i}{3}}
+\end{pmatrix}
+\begin{pmatrix}
+	1 & 1 & 1 \\
+	1 & e^{\dfrac{\pi i}{3}} & e^{\dfrac{2\pi i}{3}} \\
+	1& e^{\dfrac{2\pi i}{3}} & e^{\dfrac{\pi i}{3}}
+\end{pmatrix}\\
+&=\begin{pmatrix}
+	1 & 0 & 0 \\
+	0 & e^{\dfrac{\pi i}{3}} & 0 \\
+	0& 0 & e^{\dfrac{2\pi i}{3}}
+\end{pmatrix}\\
+&=\begin{pmatrix}
+	1 & 0 & 0 \\
+	0 & \omega & 0 \\
+	0& 0 & \omega^2
+\end{pmatrix}\
+\end{align}
+wow this is interesting.
+This does show that 
+\begin{equation}
+	FCF^{-1}
+\end{equation}
+yields a diagonal matrix
+as 
+\begin{equation}
+	C = a_0S_0
+	+a_1S_1 + a_2S_2
+\end{equation}
+and as
+\begin{equation}
+	FS_iF^{-1} = D_i
+\end{equation}
+then 
+\begin{equation}
+	FCF^{-1} =  a_0D_0
+	+a_1D_1 + a_2D_2
+\end{equation}
+which is a diagonal matrix.
+6.
+\begin{equation}
+	C(a)*b = a*b
+\end{equation}
+\begin{equation}
+	\begin{pmatrix}
+		a_0 & a_2 & a_1 \\
+		a_1 & a_0 & a_2 \\
+		a_2 & a_1 & a_0
+	\end{pmatrix}
+	\begin{pmatrix}
+		b_0 \\
+		b_1 \\
+		b_2
+	\end{pmatrix}=
+\begin{pmatrix}
+	a_0b_0+a_2b_1+a_1b_2 \\
+	a_1b_0+a_0b_1+a_2b_2 \\
+	a_2b_0+a_1b_1+a_0b_2
+\end{pmatrix}
+\end{equation}
+Now, let's add rotated columns
+\begin{equation}
+	\begin{pmatrix}
+		a_0 & a_2 & a_1 \\
+		a_1 & a_0 & a_2 \\
+		a_2 & a_1 & a_0
+	\end{pmatrix}
+	\begin{pmatrix}
+		b_0  & b_1 & b_2\\
+		b_1 & b_2 & b_0\\
+		b_2 & b_0 & b_1
+	\end{pmatrix}=
+	\begin{pmatrix}
+		a_0b_0+a_2b_1+a_1b_2 & a_1b_0+a_0b_1+a_2b_2 & a_2b_0+a_1b_1+a_0b_2\\
+		a_1b_0+a_0b_1+a_2b_2 & a_2b_0+a_1b_1+a_0b_2 & a_0b_0+a_2b_1+a_1b_2\\
+		a_2b_0+a_1b_1+a_0b_2 & a_0b_0+a_2b_1+a_1b_2 & a_1b_0+a_0b_1+a_2b_2
+	\end{pmatrix}
+\end{equation}
+Thus we found the matrices.
+7.
+$x-1$ and $x^2+x+1$ doesn't have common factors. So
+\begin{align}
+	gcd(x-1, x^2+x+1) &=  1 \\
+	\dfrac{1}{3}((x-1)(-x-2)+(x^2+x+1)) = 1
+\end{align}
+Now,
+\begin{equation}
+	1+(x-1)p(x)=x+1+(x^2+x+1)q(x)
+\end{equation}
+so we have
+\begin{equation}
+	(x-1)p(x)-(x^2+x+1)q(x) = x
+\end{equation}
+from the above we get the solution as
+
+\begin{equation}
+	(x-1)(x/3+2/3)x-(x^2+x+1)x/3 = x
+\end{equation}
+so
+\begin{equation}
+	f = x^3/3+x^2/3+x/3+x+1
+\end{equation}
+8.
+\begin{equation}
+	x^2+1 \mod x^3-1
+\end{equation}
+is in the ring 
+\begin{equation}
+	\dfrac{C[x]}{x^3-1}
+\end{equation}
+Now, to work with the Fourier transform we need to work with vectors. We can think of $x^2+1$ as 
+\begin{equation}
+	a=\begin{pmatrix}
+		1 & 0 & 1 
+	\end{pmatrix}
+\end{equation}
+which when multiplied with 
+\begin{equation}
+	\begin{pmatrix}
+		1  \\x \\ x^2 
+	\end{pmatrix}
+\end{equation}
+gives our polynomial.
+
+polynomial multiplication is the same as vector convolution in this space. We want to bind b(x) such that
+\begin{equation}
+	(x^2+1)b(x) \equiv 1 \mod x^3-1
+\end{equation}
+
+This means we want to find a matrix b such that
+\begin{equation}
+	a*b = \begin{pmatrix}
+		1 & 0 & 0
+	\end{pmatrix}=c
+\end{equation}
+
+From the convolution theorem we know that the convolution of two elements before Fourier transform is the the same as the pointwise multiplication after it. So now let's get the fourier transform for a and the c.
+
+\begin{equation}
+	a*\begin{pmatrix}
+		1 & 1 & 1 \\
+		1 & e^{\dfrac{2\pi i}{3}} & e^{\dfrac{\pi i}{3}} \\
+		1& e^{\dfrac{\pi i}{3}} & e^{\dfrac{2\pi i}{3}}
+	\end{pmatrix}=\begin{pmatrix}
+		2 & 1+e^{\dfrac{\pi i}{3}} & 1+e^{\dfrac{2\pi i}{3}}
+\end{pmatrix}
+\end{equation}
+For c, it just is 
+\begin{equation}
+	\begin{pmatrix}
+		1 & 1 & 1
+	\end{pmatrix}
+\end{equation}
+Now, to get such a c, b after fourier transform must be
+\begin{equation}
+	\begin{pmatrix}
+		\dfrac{1}{2} & \dfrac{1}{1+e^{\dfrac{\pi i}{3}}} & \dfrac{1}{1+e^{\dfrac{2\pi i}{3}}}
+	\end{pmatrix}=
+\begin{pmatrix}
+	\dfrac{1}{2} & \dfrac{1}{\sqrt{3}e^{\dfrac{\pi i}{6}}} & \dfrac{1}{e^{\dfrac{\pi i}{3}}}
+\end{pmatrix}
+\end{equation}
+If we multiply this by the inverse fourier matrix we get 
+\begin{equation}
+	\dfrac{1}{3}
+	\begin{pmatrix}
+		\dfrac{1}{2} & \dfrac{1}{\sqrt{3}e^{\dfrac{\pi i}{6}}} & \dfrac{1}{e^{\dfrac{\pi i}{3}}}
+	\end{pmatrix}
+	\begin{pmatrix}
+		1 & 1 & 1 \\
+		1 & e^{\dfrac{\pi i}{3}} & e^{\dfrac{2\pi i}{3}} \\
+		1& e^{\dfrac{2\pi i}{3}} & e^{\dfrac{\pi i}{3}}
+	\end{pmatrix}
+=
+\dfrac{1}{3}
+\begin{pmatrix}
+	\dfrac{1}{2}+\dfrac{1}{\sqrt{3}e^{\dfrac{\pi i}{6}}}+\dfrac{1}{e^{\dfrac{\pi i}{3}}} \\
+	\dfrac{1}{2}+\dfrac{e^{\dfrac{\pi i}{6}}}{\sqrt{3}}+e^{\dfrac{\pi i}{3}} \\
+	\dfrac{1}{2}+\dfrac{e^{\dfrac{\pi i}{2}}}{\sqrt{3}}+1
+\end{pmatrix}^T
+\end{equation}
+which might be a bit too chaotic.
+
+ICE
+
+1.
+\begin{equation}
+	\begin{pmatrix}
+		1 & 1 & 1 & 1 \\
+		1 & i & -1 & -i \\
+		1 & -1 & 1 & -1 \\
+		1 & -i & -1 & i
+	\end{pmatrix}
+\end{equation}
+
+2.
+
+$x_0+x_2$ $x_0-x_2$ $x_1+x_3$ $x_1-x_3$
+
+3
+\begin{equation}
+	\begin{pmatrix}
+		1 & 1 & 1 & 1 \\
+		1 & i & -1 & -i \\
+		1 & -1 & 1 & -1 \\
+		1 & -i & -1 & i
+	\end{pmatrix}
+\begin{pmatrix}
+	x_0 \\
+	x_1 \\
+	x_2 \\
+	x_3
+\end{pmatrix}
+\end{equation}
+is the same as
+\begin{equation}
+	\begin{pmatrix}
+		1 & 0 & 1 & 0 \\
+		0 & 1 & 0 & 1 \\
+		1 & 0 & -1 & 0 \\
+		0 & 1 & 0 & -1
+	\end{pmatrix}
+	\begin{pmatrix}
+		1 & 0 & 0 & 0 \\
+		0 & 1 & 0 & 0 \\
+		0 & 0 & 1 & 0 \\
+		0 & 0 & 0 & i
+	\end{pmatrix}
+	\begin{pmatrix}
+		1 & 1 & 0 & 0 \\
+		1 & -1 & 0 & 0 \\
+		0 & 0 & 1 & 1 \\
+		0 & 0 & 1 & -1
+	\end{pmatrix}
+	\begin{pmatrix}
+		1 & 0 & 0 & 0 \\
+		0 & 0 & 1 & 0 \\
+		0 & 1 & 0 & 0 \\
+		0 & 0 & 0 & i
+	\end{pmatrix}
+	\begin{pmatrix}
+		x_0 \\
+		x_1 \\
+		x_2 \\
+		x_3
+	\end{pmatrix}
+\end{equation}
+\end{document}

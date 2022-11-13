@@ -1,0 +1,144 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{program}
+\usepackage{mathtools}
+\usepackage{float}
+\usepackage{fancyvrb}
+\usepackage{amsfonts}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\begin{document}
+		\begin{equation}
+		F_{8} = (F_2 \otimes I_4)T^{8}_4(I_4 \otimes F_2) L^{8}_4
+	\end{equation}
+	\begin{equation}
+		F_8=(F_2 \otimes I_4)T^8_4(I_2 \otimes F_2 \otimes I_2)(I_2 \otimes T^4_2)(I_4 \otimes F_2)
+	\end{equation}
+	\begin{equation}
+		A \otimes B = L(B\otimes A)L'
+	\end{equation}
+	So we can flip tensor products by some permutation matrix
+	
+	$L^4_2$ is loaded stride inverse of storing the stride. Then, we can write everything using $I_4 \otimes F_2$
+	
+	Now, how do we find these permutaions? one to one onto mapping on a finite set.
+	
+	They are one to one permutations so there are $n!$ permutations. We can combine permutation operations by multiplying them. Not communicative
+	
+	Given we have matrices
+	
+	\begin{equation}
+		\sigma = 
+		\begin{pmatrix}
+			0 &  1 & 2 & 3 \\
+			1 & 2 & 3 & 0
+		\end{pmatrix}
+	\end{equation}
+	\begin{equation}
+		t = 
+		\begin{pmatrix}
+			0 &  1 & 2 & 3 \\
+			1 & 0 & 3 & 2
+		\end{pmatrix}
+	\end{equation}
+	$\sigma$ is the same as
+	\begin{equation}
+		P=\begin{pmatrix}
+			0 & 1 & 0 & 0 \\
+			1 & 0 & 0 & 0 \\
+			0 & 0 & 0 & 1 \\
+			0 & 0 & 1 & 0
+		\end{pmatrix}
+	\end{equation}
+	
+	Same multiplications can be done. If i goes to j, the matrix [i][j] is 1. For the inverse, if i goes to j, j must go to i. So given the permutation is just the transpose.
+	
+	We showed one to one isomorphic mapping from the idea of permutations of mapping indices to matrices which preserves all the properties.
+	
+	\begin{equation}
+		D=\begin{pmatrix}
+			d_0 & 0 & 0 & 0 \\
+			0 & d_1 & 0 & 0 \\
+			0 & 0 & d_2 & 0 \\
+			0 & 0 & 0 & d_3
+		\end{pmatrix}
+	\end{equation}
+	What is $PDP^T$
+	\begin{align}
+		\begin{pmatrix}
+			0 & 1 & 0 & 0 \\
+			1 & 0 & 0 & 0 \\
+			0 & 0 & 0 & 1 \\
+			0 & 0 & 1 & 0
+		\end{pmatrix}
+		\begin{pmatrix}
+			d_0 & 0 & 0 & 0 \\
+			0 & d_1 & 0 & 0 \\
+			0 & 0 & d_2 & 0 \\
+			0 & 0 & 0 & d_3
+		\end{pmatrix}
+		\begin{pmatrix}
+			0 & 1 & 0 & 0 \\
+			1 & 0 & 0 & 0 \\
+			0 & 0 & 0 & 1 \\
+			0 & 0 & 1 & 0
+		\end{pmatrix}
+		&=
+		\begin{pmatrix}
+			d_1 & 0 & 0 & 0 \\
+			0 & d_0 & 0 & 0 \\
+			0 & 0 & d_3 & 0 \\
+			0 & 0 & 0 & d_2
+		\end{pmatrix}
+	\end{align}
+	conjugation of a diagonal matrix. As 0 goes to 1, 1 goes to 0. This is changing basis to the permutation matrix
+	
+	\begin{equation}
+		A_m \otimes B_n = L^{mn}_m (B_n \otimes A_m) L^{mn}_n
+	\end{equation}
+	As
+	$L^{mn}_n$ permutes the input at stride n so
+	\begin{equation}
+		(L^{mn}_n)^{-1} = L^{mn}_m
+	\end{equation}
+	Then we can do
+	\begin{equation}
+		(A_m \otimes B_n) L^{mn}_m = L^{mn}_m (B_n \otimes A_m) 
+	\end{equation}
+
+	L is the opposite of the tensor.
+	
+	\begin{equation}
+		(I_2 \otimes F_2) \otimes I_2 = L^8_4(I_4 \otimes F_2)L^8_2
+	\end{equation}
+	
+	\begin{equation}
+		L^8_4 L^8_4 = L^8_2 L^8_2 L^8_4 = L^8_2
+	\end{equation}
+	
+	\begin{equation}
+		F_8=L^8_2 (I_4 \otimes F_2)L^8_4 T^8_4 L^8_4(I_4 \otimes F_2)L^8_2 (I_2 \otimes T^4_2)(I_4 \otimes F_2)R_8
+	\end{equation}
+	\begin{equation}
+		F_8=L^8_2 (I_4 \otimes F_2)\overbar{T^{8}_4} L^8_2(I_4 \otimes F_2) \overbar{(I_2 \otimes T^4_2)}L^8_2(I_4 \otimes F_2)R_8
+	\end{equation}
+
+	Now what is $\overbar{T^{8}_4}$ and $\overbar{(I_2 \otimes T^4_2)}$?
+	
+	Hint, the $e$ stuff
+	
+	Prove 
+	
+	\begin{equation}
+		A_m \otimes B_n = L^{mn}_m (B_n \otimes A_m) L^{mn}_n
+	\end{equation}
+	
+	\begin{equation}
+		(A \otimes B)(x \otimes y)
+	\end{equation}
+	For $A_m \otimes B_n$, is a mn size matrix. At index i, j, the value is $A_m[i//n+i \mod m]$
+\end{document}

@@ -1,0 +1,87 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{program}
+\usepackage{mathtools}
+\usepackage{float}
+\usepackage{fancyvrb}
+\usepackage{amsfonts}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\begin{document}
+	\begin{equation}
+		\begin{pmatrix}
+			F_2 & W_2F_2 \\
+			F_2 & -W_2F_2
+		\end{pmatrix}
+	\end{equation}
+	\begin{equation}
+		=\begin{pmatrix}
+			1 & 1 & 1 & 1 \\
+			1 & \omega & \omega^2 & \omega^3 \\
+			1 & \omega^2 & 1 & \omega^2 \\
+			1 & \omega^3 & \omega^2 & \omega
+		\end{pmatrix}
+		\begin{pmatrix}
+			1 & 0 & 0 & 0 \\
+			0 & 0 & 1 & 0 \\
+			0 & 1 & 0 & 0 \\
+			0 & 0 & 0 & 1
+		\end{pmatrix}
+	\end{equation}
+	\begin{equation}
+		F_n=(F_2 \otimes I_m)T_m^{2m}(I_2 \otimes F_m)L_m^{2m}
+	\end{equation}
+	As $(L_m^{2m})^{-1}$ is the inverse
+	\begin{equation}
+		F_nL_m^{2m}=(F_2 \otimes I_m)T_m^{2m}(I_2 \otimes F_m)
+	\end{equation}
+	$L_m^{2m}$ takes stride 2(just the columns). What is this?
+	\begin{equation}
+		W_m = \begin{pmatrix}
+			1 & .... \\
+			0 & \omega \\
+		\end{pmatrix}
+	\end{equation}
+etc.
+	\begin{equation}
+		\begin{pmatrix}
+			\omega^{i2j} & \omega^{i(2j+1)} \\
+			\omega^{(i+m)2j} & \omega^{(i+m)(2j+1)}
+		\end{pmatrix}
+		=
+		\begin{pmatrix}
+			\omega^{i2j} & \omega^{2ij}\omega^i \\
+			\omega^{2ij}\omega^{2mj} & \omega^{2ij}\omega^{2mj}\omega^{m}\omega^i
+		\end{pmatrix}
+	\end{equation}
+
+	This is
+	\begin{equation}
+		\begin{pmatrix}
+			F_m & W_mF_m \\
+			F_m & -W_mF_m
+		\end{pmatrix}
+		=
+		\begin{pmatrix}
+			I_m & I_m \\
+			I_m & -I_m
+		\end{pmatrix}
+		\begin{pmatrix}
+			I_m & 0 \\
+			0 & W_m
+		\end{pmatrix}
+			\begin{pmatrix}
+				F_m & 0 \\
+				0 & F_m
+			\end{pmatrix}
+	\end{equation}
+	Thus proven
+	
+	
+	Notes
+	
+\end{document}

@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{program}
+\usepackage{mathtools}
+\usepackage{float}
+\usepackage{fancyvrb}
+\usepackage{amsfonts}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\begin{document}
+	\begin{equation}
+		(I_4 \otimes F_2)R_8=R_8(F_2 \otimes I_4)
+	\end{equation}
+	\begin{align}
+		(I_4 \otimes F_2)R_8(e^2_i \otimes e^2_j \otimes e^2_k)&=(I_4 \otimes F_2)(e^4_{2k+j} \otimes e^2_i) \\
+		&=(e^4_{2k+j} \otimes F_2e^2_i)
+	\end{align}
+	\begin{align}
+		R_8(F_2 \otimes I_4)(e^2_i \otimes e^2_j \otimes e^2_k)
+	\end{align}
+	I see
+	\begin{equation}
+		R_8 =(R_4 \otimes I_2)L^8_4=(L^4_2 \otimes I_2)L^8_4
+	\end{equation}
+	
+	\begin{equation}
+		F_{rs} = (F_r \otimes I_s)T^{rs}_s(I_r \otimes F_s) L^{rs}_r
+	\end{equation}
+	so
+	\begin{equation}
+		F_{16}=(F_2 \otimes I_8)T^{16}_8(I_2 \otimes F_8)R_{16}
+	\end{equation}
+	Now as
+	\begin{equation}
+		F_8=(F_2 \otimes I_4) T^8_4(I_2 \otimes F_2 \otimes I_2)(I_2 \otimes T^4_2)(I_4 \otimes F_2)R_8
+	\end{equation}
+	We can do
+	\begin{align}
+		F_8&=(F_2 \otimes I_4) T^8_4(I_2 \otimes F_2 \otimes I_2)(I_2 \otimes T^4_2)R_8(F_2 \otimes I_4)\\
+		&=(F_2 \otimes I_4) T^8_4R_8(F_2 \otimes I_4)(T^4_2 \otimes I_2)(F_2 \otimes I_4)
+	\end{align}
+\begin{equation}
+	(R_n \otimes I_2)L^{2n}_n = R_{2n}
+\end{equation}
+\end{document}

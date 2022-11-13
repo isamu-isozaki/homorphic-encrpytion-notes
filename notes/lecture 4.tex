@@ -1,0 +1,158 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{program}
+\usepackage{mathtools}
+\usepackage{float}
+\usepackage{fancyvrb}
+\usepackage{amsfonts}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\begin{document}
+	Given
+	\begin{equation}
+		\dfrac{\mathbb{C}[x]}{x^{rs}-1}
+	\end{equation}
+	We can represent this as a coefficient vector of size rs like so
+	\begin{equation}
+		\begin{pmatrix}
+			f_0 \\
+			f_1 \\
+			... \\
+			f_{rs-1}
+		\end{pmatrix}
+	\end{equation}
+	for the polynomial
+	\begin{equation}
+		f_0+f_1x+f_2x^2....f_{rs-1}x^{rs-1}
+	\end{equation}
+	Now given this, we want to do a discrete fourier transform. To do this, we can write the above equation as
+	\begin{equation}
+		\prod^{r-1}_{i=0}\dfrac{\mathbb{C}[x]}{x^{s}-\omega_r^i}
+	\end{equation}
+	This is equivalent to factoring
+	\begin{equation}
+		(x^{rs}-1)=(x^s-1)(x^s-\omega_r)(x^s-\omega_r^2)....
+	\end{equation}
+	The reason this works is because if $x=\omega_r$, x to the rth power is always 1 since $\omega_r^r=1$. Now, let us examine each of
+	\begin{equation}
+		\dfrac{\mathbb{C}[x]}{x^{s}-\omega_r^i}
+	\end{equation}
+	Given the polynomial
+	\begin{equation}
+		f_0+f_1x+f_2x^2....f_{rs-1}x^{rs-1}
+	\end{equation}
+	If we take this mod $x^{s}-\omega_r^i$, we replace every $x^s$ with $\omega_r^i$. So, we have
+	
+	\begin{equation}
+		(f_0+f_s\omega_r^i+f_{2s}\omega_r^{2i}....) + (f_1+f_{s+1}\omega_r^i+f_{2s+1}\omega_r^{2i}....)x +
+		(f_2+f_{s+2}\omega_r^i+f_{2s+2}\omega_r^{2i}....)x^2
+	\end{equation}
+	Now, if we have $i=0$, we can have
+	\begin{equation}
+		(f_0+f_s+f_{2s}....) + (f_1+f_{s+1}+f_{2s+1}....)x +
+		(f_2+f_{s+2}+f_{2s+2}....)x^2
+	\end{equation}
+	In the previous coefficient vector format, we can write this as
+	\begin{equation}
+		\begin{pmatrix}
+			f_0+f_s+f_{2s}.... \\
+			f_1+f_{s+1}+f_{2s+1}....\\
+			f_2+f_{s+2}+f_{2s+2}....\\
+			... \\
+			f_{s-1}+f_{2s-1}....
+		\end{pmatrix}
+	\end{equation}
+	So we have s rows of coefficients. This can be computed as a matrix multiplication from the initial coefficient vector as
+	
+	\begin{equation}
+		\begin{pmatrix}
+			I_s & I_s& I_s & .... & I_s
+		\end{pmatrix}
+		\begin{pmatrix}
+			f_0 \\
+			f_1 \\
+			... \\
+			f_{rs-1}
+		\end{pmatrix}
+	\end{equation}
+	This would get stride s.
+	
+	Now, in the case of $\omega^i$, we have
+	\begin{equation}
+		\begin{pmatrix}
+			I_s & \omega^i I_s& \omega^{2i}I_s & .... & \omega^{-i}I_s
+		\end{pmatrix}
+		\begin{pmatrix}
+			f_0 \\
+			f_1 \\
+			... \\
+			f_{rs-1}
+		\end{pmatrix}
+	\end{equation}
+	Now, the ith row of $F_r \otimes I_s$ is exactly this. Also, we can transpose so we can write it as
+	\begin{equation}
+		\begin{pmatrix}
+			f_0 & f_1 &	... &f_{rs-1}
+		\end{pmatrix}
+		\begin{pmatrix}
+			I_s \\ \omega^i I_s\\ \omega^{2i}I_s \\ .... \\ \omega^{-i}I_s
+		\end{pmatrix}
+	\end{equation}
+	will be a one times s matrix of all the coefs. Now if we do
+	\begin{equation}
+		\begin{pmatrix}
+			f_0 & f_1 &	... &f_{rs-1}
+		\end{pmatrix}
+		F_r \otimes I_s
+	\end{equation}
+	We would have a one times rs matrix which goes from the coefficient mod $x^r-1$, $x^r-\omega$ and onwards concatenated in a row.
+	
+	Now, our goal for this whole thing is to make a matrix $F_{sm}$ which when we multiply by our coefficient vector, we get the function evaluated at $1, \omega, \omega^2$ and so on. For this, we want to use $F_s$ to do this. Now so far, we transformed our original coefficient vector into a concatenated vector given mod $x^2 \equiv \omega_r^i$ which is
+	\begin{equation}
+		\dfrac{\mathbb{C}[x]}{x^{s}-\omega_r^i}
+	\end{equation}
+	Now we want to do an operation where we can just use $F_s$, or in other words we can just calculate
+	\begin{equation}
+		\dfrac{\mathbb{C}[x]}{x^{s}-1}
+	\end{equation}
+	and convert it to the case of
+	\begin{equation}
+		\dfrac{\mathbb{C}[x]}{x^{s}-\omega_r^i}
+	\end{equation}
+	Now, if $i=0$, then the matrix that ties this together is just the identity. Now, at i, we can see that it becomes $W_s^i$ as we multiply the original $\dfrac{\mathbb{C}[x]}{x^{s}-1}$ coefficient vector by
+	\begin{equation}
+		\begin{pmatrix}
+			1 & 0 & .... \\
+			0 & \omega^i & .... \\
+			....
+		\end{pmatrix}
+	\end{equation}
+	and so on. Now, if we do this for all the cases, we notice that this is just the twiddle matrix $T^{rs}_s$ which is the identity at the top left then $W$, $W^2$ and so on.
+	Then, finally, we multiply by $I_r \otimes F_s$ to get the initial coefficients.
+	
+	
+	Now, while this can get confusing from the direction of thinking multiplying the coefficient vector to this but the idea is different. The idea is we get the coefficient vector from
+	\begin{equation}
+		\dfrac{\mathbb{C}[x]}{x^{s}-1}
+	\end{equation}
+	And concatenate it together like so
+	\begin{equation}
+		\begin{pmatrix}
+			f_0 & f_s & f_{2s} & .... & f_1 & f_{s+1} & ....
+		\end{pmatrix}
+	\end{equation}
+	This is the same as the $I_r \otimes F_s$ because for each block of $f_0$ to one before $f_1$, if we multiply by $I_r \otimes F_s$ we get the fourier/evaluation matrix for that block.
+	
+	Now, we can multiply by the twiddle/triangle matrix and we get
+	\begin{equation}
+		(f_0+f_s\omega_r^i+f_{2s}\omega_r^{2i}....) + (f_1+f_{s+1}\omega_r^i+f_{2s+1}\omega_r^{2i}....)x +
+		(f_2+f_{s+2}\omega_r^i+f_{2s+2}\omega_r^{2i}....)x^2
+	\end{equation}
+	for each block in equation form.
+	
+	Now, this is the same as the initial coefficient vector times $F_r \otimes I_s$. So I'm guessing we need an inverse to get back to the original?
+\end{document}

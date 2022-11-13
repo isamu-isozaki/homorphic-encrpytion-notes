@@ -1,0 +1,112 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{program}
+\usepackage{mathtools}
+\usepackage{float}
+\usepackage{fancyvrb}
+\usepackage{amsfonts}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\begin{document}
+	Given recursive definition
+	\begin{equation}
+		F_{2^t} = (\prod_{c=1}^{t}(I_{2^{c-1}}\otimes F_2 \otimes I_{2^{t-c}})(I_{2^{c-1}} \otimes T^{2^{t-c+1}}_{2^{t-c}}))R_{2^t}
+	\end{equation}
+	Where
+	\begin{equation}
+		T^{mn}_n(e^m_i \otimes e^n_j)=\omega^{ij}(e^m_i \otimes e^n_j)
+	\end{equation}
+	and 
+	\begin{equation}
+		L^{mn}_n(e^m_i \otimes e^n_j) = (e^n_j \otimes e^m_i)
+	\end{equation}
+	From this we can get
+	\begin{equation}
+		F_{2^t} = (\prod_{c=1}^{t}L_2^{2^t}(I_{2^{t-1}}\otimes F_2)T_c)R_{2^t}
+	\end{equation}
+	where 
+	\begin{equation}
+		T_c = L^{2^t}_{2^{t-c}}(I_{2^{c-1}} \otimes T^{2^{t-c+1}}_{2^{t-c}})L^{2^t}_{2^c}
+	\end{equation}
+	and
+	\begin{equation}
+		A^{m \times m} \otimes B^{n\times n}=L^{mn}_m(B^{n \times n} \otimes A^{m \times m})L^{mn}_n
+	\end{equation}
+
+	1.
+	\begin{equation}
+		T^{mn}_n(e^m_i \otimes e^n_j)=\omega^{ij}(e^m_i \otimes e^n_j)
+	\end{equation}
+	while
+	\begin{equation}
+		W_ne^n_i= \omega^ie^n_i
+	\end{equation}
+	
+	So for $T^{mn}_n(e^m_i \otimes e^n_j)=\omega^{ij}(e^m_i \otimes e^n_j)$, if we have
+	$T^{'mn}_n$ just be a diagonal of $W_n$s repeating we get
+	\begin{equation}
+		T^{'mn}_n(e^m_i \otimes e^n_j)=\omega^{i}(e^m_i \otimes e^n_j)
+	\end{equation}
+	Thus as 
+	\begin{equation}
+		(W_n)^je^n_i= \omega^{ij}e^n_i
+	\end{equation}
+	
+	\begin{equation}
+		T^{mn}_n(e^m_i \otimes e^n_j)=\omega^{ij}(e^m_i \otimes e^n_j)
+	\end{equation}
+	$T^{'mn}_n$ just be a diagonal of $W_n^j$ from j 0 to m. So
+	
+	\begin{equation}
+		T^{mn}_n = \oplus_{i=0}^{m-1} W^i_n(\omega)
+	\end{equation}
+	
+	2.
+	\begin{align}
+		L^{mn}_nT^{mn}_nL^{mn}_m(e^n_i \otimes e^m_j)&=L^{mn}_nT^{mn}_n(e^m_j \otimes e^n_i)\\
+		&=\omega^{ij}L^{mn}_n(e^m_j \otimes e^n_i) \\
+		&=\omega^{ij}(e^n_i \otimes e^{m}_j) \\
+		&= T^{mn}_m(e^n_i \otimes e^{m}_j) 
+	\end{align}	
+
+	3. 
+	With $m=2^c$, $n=2^{t-c}$
+	\begin{align}
+		T_c &= L^{2^t}_{2^{t-c}}(I_{2^{c-1}} \otimes T^{2^{t-c+1}_{2^{t-c}}}) L^{2^t}_{2^c} \\
+		&=(L^{2^t}_{2^{t-c}}I_{2^{c-1}}L^{2^t}_{2^c} \otimes L^{2^t}_{2^{t-c}}T^{2^{t-c+1}_{2^{t-c}}}L^{2^t}_{2^c}) \\
+		&= (I_{2^{c-1}} \otimes T^{2^{t-c+1}}_{2})
+	\end{align}
+	As
+	\begin{equation}
+		T^{mn}_n = \oplus_{i=0}^{m-1} W^i_n(\omega)
+	\end{equation}
+	\begin{align}
+		&= I_{2^{c-1}} \otimes \oplus_{i=0}^{2^{t-c}-1} W^i_2(\omega)
+	\end{align}
+	how where did the $2^c$ come from?
+	
+	4.
+	\begin{align}
+		F_{2^t} &= (\prod_{c=1}^{t}(I_{2^{c-1}}\otimes F_2 \otimes I_{2^{t-c}})(I_{2^{c-1}} \otimes T^{2^{t-c+1}}_{2^{t-c}}))R_{2^t} \\
+		&= (\prod_{c=1}^{t}L^{2^t}_{2^{c-1}}(F_2 \otimes I_{2^{t-c}} \otimes I_{2^{c-1}} )L^{2^t}_{2^{t-c+1}} L^{2^t}_{2^{c-1}}( T^{2^{t-c+1}}_{2^{t-c}}  \otimes I_{2^{c-1}})L^{2^t}_2L^{2^t}_{2^{t-c}})R_{2^t} \\
+		&=(\prod_{c=1}^{t}L^{2^t}_{2^{c-1}}(F_2 \otimes I_{2^{t-1}} )( T^{2^{t-c+1}}_{2^{t-c}}  \otimes I_{2^{c-1}})L^{2^t}_{2^{t-c+1}})R_{2^t}
+	\end{align}
+	final step hmm
+	\begin{align}
+		(F_2 \otimes I_{2^t})T^{2^{t+1}}_{2^t}(F_{2^t} \otimes I_2)L^{2^{t+1}}_2
+	\end{align}
+	
+	5.
+	
+	\begin{align}
+		F_{2^t} &= (\prod_{c=1}^{t}L_2^{2^t}(I_{2^{t-1}}\otimes F_2)T_c)R_{2^t} \\
+		&= (\prod_{c=1}^{t}L_2^{2^t}(I_{2^{t-1}}\otimes F_2)L^{2^t}_{2^{t-c}}(I_{2^{c-1}} \otimes T^{2^{t-c+1}_{2^{t-c}}}) L^{2^t}_{2^c})R_{2^t} \\
+		&= (\prod_{c=1}^{t}L_2^{2^t}L_{2^{t-1}}^{2^t}(F_2 \otimes I_{2^{t-1}})L_2^{2^t}L^{2^t}_{2^{t-c}}L_{2^{c-1}}^{2^t}(T^{2^{t-c+1}}_{2^{t-c}} \otimes I_{2^{c-1}})L_{2^{t-c+1}}^{2^{t}}L^{2^t}_{2^c})R_{2^t} \\
+		&= (\prod_{c=1}^{t}(F_2 \otimes I_{2^{t-1}})L_{2^{c}}^{2^t}(T^{2^{t-c+1}}_{2} \otimes I_{2^{c-1}})L_{2}^{2^{t}})R_{2^t} \\
+	\end{align}
+
+\end{document}

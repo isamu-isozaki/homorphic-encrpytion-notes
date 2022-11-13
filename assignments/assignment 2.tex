@@ -1,0 +1,382 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{program}
+\usepackage{mathtools}
+\usepackage{float}
+\usepackage{fancyvrb}
+\usepackage{amsfonts}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\begin{document}
+	1. I learned this from https://math.stackexchange.com/questions/3174003/dft-modulo-p-how-to-find-the-primitive-root-omega-n.
+	
+	Thanks patrik. I'm not sure what p is but $F_4$ is
+	\begin{equation}
+		\begin{pmatrix}
+			1 & 1 & 1 & 1 \\
+			1 & \omega & \omega^2 & \omega^3 \\
+			1 & \omega^2 & \omega^4 & \omega^6 \\
+			1 & \omega^3 & \omega^6 & \omega^9 
+		\end{pmatrix}
+	\end{equation}
+
+	Now on $Z_p$, we are not dealing with complex numbers. We are dealing with integers. $\omega$ for $Z_p$ at $p=17$ is 7. Then, we want $\omega$ such that $\omega_4^4 = 7^{17-1}=7^16$ so $\omega=7^4 \mod p=4$ so
+	
+	\begin{equation}
+		F_4=\begin{pmatrix}
+			1 & 1 & 1 & 1 \\
+			1 & 4 & 16 & 13 \\
+			1 & 16 & 1 & 16 \\
+			1 & 13 & 16 & 4
+		\end{pmatrix}
+	\end{equation}
+	
+	2. Testing out cooley-turkey factorization. We want to get in the form
+	
+	\begin{equation}
+		(F_2 \otimes I_2)T_2^4(I_2 \otimes F_2)L_2^4
+	\end{equation}
+	
+	Given we have
+	
+	\begin{equation}
+		F_4x=\begin{pmatrix}
+			1 & 1 & 1 & 1 \\
+			1 & 4 & 16 & 13 \\
+			1 & 16 & 1 & 16 \\
+			1 & 13 & 16 & 4
+		\end{pmatrix}
+		\begin{pmatrix}
+			x_0 \\
+			x_1 \\
+			x_2 \\
+			x_3
+		\end{pmatrix}
+	\end{equation}
+
+	we get
+	
+	\begin{equation}
+		\begin{pmatrix}
+			x_0+x_1+x_2+x_3 \\
+			x_0+4x_1+16x_2+13x_3 \\
+			x_0 + 16x_1+x_2+16x_3 \\
+			x_0+13x_1+16x_2+4x_3
+		\end{pmatrix}
+	\end{equation}
+
+	Now, this can be simplified as
+	
+	\begin{align}
+		t_0 &= x_0+x_2 \\
+		t_1 &= x_0+16x_2 \\
+		t_2 &= x_1+x_3 \\
+		t_3 &= 4x_1+13x_3 \\
+		t_4 &= 16t_2 \\
+		t_5 &= 16t_3 
+	\end{align}
+	Then, the sum can be written as
+	\begin{equation}
+		\begin{pmatrix}
+			t_0+t_2 \\
+			t_1+t_3 \\
+			t_0+t_4 \\
+			t_1+t_5
+		\end{pmatrix}
+	\end{equation}
+	Lowering the number of computations from 12 additions to 8 additoins.
+
+	This is the same as
+	\begin{equation}
+		\begin{pmatrix}
+			1 & 0 & 1 & 0 \\
+			0 & 1 & 0 & 1 \\
+			1 & 0 & 16 & 0 \\
+			0 & 1 & 0 & 16
+		\end{pmatrix}
+	\end{equation}
+	This is $(F_2 \otimes I_2)$ as
+	\begin{equation}
+		(F_2 \otimes I_2) = \begin{pmatrix}
+			1 & 0 & 1 & 0\\
+			0 & 1 & 0 & 1\\
+			1 & 0 & 16 & 0 \\
+			0 & 1 & 0 & 16
+		\end{pmatrix}
+	\end{equation}
+
+	So in
+		
+	\begin{equation}
+		(F_2 \otimes I_2)T_2^4(I_2 \otimes F_2)L_2^4
+	\end{equation}
+
+	The rest of the terms are transforming from xs to ts.
+	
+	xs and ts in a matrix relation is
+	
+	\begin{equation}
+		\begin{pmatrix}
+			t_0 \\
+			t_1 \\
+			t_2 \\
+			t_3
+		\end{pmatrix}
+		= 
+		\begin{pmatrix}
+			1 & 0 & 1 & 0 \\
+			1 & 0 & 16 & 0 \\
+			0 & 1 & 0 & 1 \\
+			0 & 4 & 0 & 13
+		\end{pmatrix}
+	\begin{pmatrix}
+		x_0 \\
+		x_1 \\
+		x_2 \\
+		x_3
+	\end{pmatrix}
+	\end{equation}
+	If we group together even/odd indices,
+	\begin{equation}
+		\begin{pmatrix}
+			t_0 \\
+			t_1 \\
+			t_2 \\
+			t_3
+		\end{pmatrix}
+		= 
+		\begin{pmatrix}
+			1 & 1 & 0 & 0 \\
+			1 & 16 & 0 & 0 \\
+			0 & 0 & 1 & 1 \\
+			0 & 0 & 4 & 13
+		\end{pmatrix}
+		\begin{pmatrix}
+			1 & 0 & 0 & 0 \\
+			0 & 0 & 1 & 0 \\
+			0 & 1 & 0 & 0 \\
+			0 & 0 & 0 & 1
+		\end{pmatrix}
+		\begin{pmatrix}
+			x_0 \\
+			x_1 \\
+			x_2 \\
+			x_3
+		\end{pmatrix}
+	\end{equation}
+	Now, as 4, 13 is just 1, 16 times 4,
+	
+	\begin{equation}
+		\begin{pmatrix}
+			t_0 \\
+			t_1 \\
+			t_2 \\
+			t_3
+		\end{pmatrix}
+		= 
+		\begin{pmatrix}
+			1 & 0 & 0 & 0 \\
+			0 & 1 & 0 & 0 \\
+			0 & 0 & 1 & 0 \\
+			0 & 0 & 0 & 4
+		\end{pmatrix}
+		\begin{pmatrix}
+			1 & 1 & 0 & 0 \\
+			1 & 16 & 0 & 0 \\
+			0 & 0 & 1 & 1 \\
+			0 & 0 & 1 & 16
+		\end{pmatrix}
+		\begin{pmatrix}
+			1 & 0 & 0 & 0 \\
+			0 & 0 & 1 & 0 \\
+			0 & 1 & 0 & 0 \\
+			0 & 0 & 0 & 1
+		\end{pmatrix}
+		\begin{pmatrix}
+			x_0 \\
+			x_1 \\
+			x_2 \\
+			x_3
+		\end{pmatrix}
+	\end{equation}
+
+	For $F_2$, it's $\omega_2^2 = 7^{17-1}=7^16$ so 16.
+	\begin{equation}
+		F_2=\begin{pmatrix}
+			1 & 1 \\
+			1 & 16
+		\end{pmatrix}
+	\end{equation}
+	
+	\begin{equation}
+		(I_2 \otimes F_2) = \begin{pmatrix}
+			1 & 1 & 0 & 0\\
+			1 & 16 & 0 & 0\\
+			0 & 0 & 1 & 1 \\
+			0 & 0 & 1 & 16
+		\end{pmatrix}
+	\end{equation}
+	
+	So we have our factorization! The final result is
+	\begin{align}
+		F_4&=\begin{pmatrix}
+			1 & 1 & 1 & 1 \\
+			1 & 4 & 16 & 13 \\
+			1 & 16 & 1 & 16 \\
+			1 & 13 & 16 & 4
+		\end{pmatrix}=
+		\begin{pmatrix}
+			1 & 0 & 1 & 0 \\
+			0 & 1 & 0 & 1 \\
+			1 & 0 & 16 & 0 \\
+			0 & 1 & 0 & 16
+		\end{pmatrix}
+		\begin{pmatrix}
+			1 & 0 & 0 & 0 \\
+			0 & 1 & 0 & 0 \\
+			0 & 0 & 1 & 0 \\
+			0 & 0 & 0 & 4
+		\end{pmatrix}
+		\begin{pmatrix}
+			1 & 1 & 0 & 0 \\
+			1 & 16 & 0 & 0 \\
+			0 & 0 & 1 & 1 \\
+			0 & 0 & 1 & 16
+		\end{pmatrix}
+		\begin{pmatrix}
+			1 & 0 & 0 & 0 \\
+			0 & 0 & 1 & 0 \\
+			0 & 1 & 0 & 0 \\
+			0 & 0 & 0 & 1
+		\end{pmatrix}\\
+		&=(F_2 \otimes I_2)T_2^4(I_2 \otimes F_2)L_2^4
+	\end{align}
+	
+	3a.
+	
+	\begin{equation}
+		x=\begin{pmatrix}
+			x_0 \\
+			x_1 \\
+			x_2 \\
+			x_3
+		\end{pmatrix}=x_0 e_0^4 + x_1e_1^4+x_2e_2^4+x_3e_3^4
+	\end{equation}
+
+	3b. $e_i^n$ just selects the ith column of the matrix it's multiplying. So, if for all i,
+	$Ae_i^n=Be_i^n$ then they are identical as all their columns are identical.
+	
+	3c. $e_i^m \otimes e_j^n$ is for every place $e_i^m$ is 0, we have a 0 matrix but in the one place where $e_i^m$ isn't 0, we have $e_j^n$. The final vector size is $mn$ and the one is at $i*n+j$ so $e_{in+j}^{mn}$
+	
+	3d.
+	
+	\begin{equation}
+		(e_i^m \otimes e_j^n) \otimes e_k^o = e_{in+j}^{mn} \otimes e_k^o = e_{ino+jo+k}^{mno}
+	\end{equation}
+	\begin{equation}
+		e_i^m \otimes (e_j^n \otimes e_k^o) = e_i^m \otimes e_{jo+k}^{no} = e_{ino+jo + k}^{mno}
+	\end{equation}
+	Thus associativity holds true for here.
+	
+	3e.
+	
+	\begin{equation}
+		e_i^2 \otimes e_j^2 \otimes e_k^2 = e_{4i+2j+k}^{8}
+	\end{equation}
+
+	4.
+	
+	\begin{equation}
+		L_n^{mn}(e_i^m \otimes e_j^n)=(e_j^n \otimes e_i^m)
+	\end{equation}
+
+	This $L^{mn}_n$ basically just changes the location of the one from idx $in+j$ to $jm+i$.
+	
+	Since
+	
+	\begin{equation}
+		e_{i_0}^2 \otimes ....e_{i_{k-1}}^2=e_{2^ki_0+2^{k-1}i_1....i_{k-1}}
+	\end{equation}
+	
+	What $R_{2^k}$ moves this to
+	
+	\begin{equation}
+		e_{i_{k-1}}^2 \otimes ....e_{i_0}^2=e_{2^ki_{k-1}+2^{k-1}i_{k-2}....i_0}
+	\end{equation}
+
+	We can think of $R_{2^k}$ as flipping a binary number.
+	
+	So let's say we wanted to expand this. Let's say we want to calculate $R_{2^{k+1}}$. For this, one strategy we can use is flip the first k numbers in the binary representation. Then flip the final bit later. In practice we can think of this as
+	$R_{2^k} \otimes R_{2^1}$ as for each bit in the original binary matrix expands by 2 by doing
+	\begin{equation}
+		e_{i_0}^2 \otimes ....e_{i_{k-1}}^2 \otimes e_{i_k}^2
+	\end{equation}
+	
+	Here, $R_2$ flips a bit. It's
+	\begin{equation}
+		\begin{pmatrix}
+			0 & 1 \\
+			1 & 0
+		\end{pmatrix}
+	\end{equation}
+	
+	If we combine $R_2 \otimes R_2$ then we are flipping each bit individually and then we are flipping every 2 bits around. conceptually, if we keep flipping bits in this hierarchy way, we get a reverse binary. So
+	
+	0010
+	
+	to
+	
+	0001
+	
+	to
+	
+	0100
+	
+	So that's $R_4$. Can this be done in one step? Let's see
+	
+	\begin{equation}
+		R_2 \otimes R_2 =\begin{pmatrix}
+			0 & 0 & 0 & 1\\
+			0 & 0 & 1 & 0 \\
+			0 & 1 & 0 & 0 \\
+			1 & 0 & 0 & 0
+		\end{pmatrix}
+	\end{equation}
+
+	Basically, it's always the reverse of identity so i wonder if L is even needed?
+	
+	5.
+	
+	\begin{equation}
+		I_m \otimes \prod A_i = (I_mI_m.....) \otimes (A_0A_1....) = (I_m \otimes A_0)(I_m \otimes A_1)..... = \prod (I_m \otimes A_i)
+	\end{equation}
+
+	6a. $F_n$ is symmetric as row i column j can be defined as
+	$\omega^{ij}$ and same for column i row j.
+	
+	6b. 
+	
+	\begin{equation}
+		L^{2m}_m(I_2 \otimes F_m)T_m^{2m}(F_2 \otimes I_m)
+	\end{equation}
+	As
+	\begin{equation}
+		(L^{2m}_m)^T = L^{2m}_m
+	\end{equation}
+	As it is symmetric. Same for $F, T$ and $I$. As $F_n^T = F_n$, let's take the transpose of above
+	\begin{equation}
+		(F_2 \otimes I_m)T_m^{2m}(I_2 \otimes F_m)L^{2m}_m
+	\end{equation}
+	cooley turkey says
+	
+	\begin{equation}
+		F_n=(F_2 \otimes I_m)T_m^{2m}(I_2 \otimes F_m)L_m^{2m}
+	\end{equation}
+	
+	
+
+\end{document}

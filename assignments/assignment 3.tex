@@ -1,0 +1,245 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{program}
+\usepackage{mathtools}
+\usepackage{float}
+\usepackage{fancyvrb}
+\usepackage{amsfonts}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\begin{document}
+	Given theorem
+	
+	\begin{equation}
+		F_{rs} = (F_r \otimes I_s)T^{rs}_s(I_r \otimes F_s) L^{rs}_r
+	\end{equation}
+	Multipled both sides by $(L^{rs}_r)^{-1}=L^{rs}_r$
+	\begin{equation}
+		F_{rs}L^{rs}_r
+	\end{equation}
+	$L^{rs}_r$ is permutation of size rs of size r. $F_{rs}$ looks something like
+	\begin{equation}
+		F_{rs}=\begin{pmatrix}
+			1 & 1 & 1 & 1 & ..... & 1 \\
+			1 & \omega & \omega^2 & \omega^3 & .... & \omega^{-1} \\
+			1 & \omega^2 & \omega^4 & \omega^6 & .... & \omega^{-2} \\
+			...& ...&...&...&....&...\\
+			1 & \omega^r & \omega^{2r} & \omega^{3r} & .... & \omega^{-2r}\\
+			...& ...&...&...&....&...\\
+			1 & \omega^{2r} & \omega^{4r} & \omega^{6r} & .... & \omega^{-4r}\\
+			...& ...&...&...&....&...\\
+			1 & \omega^{-1} & \omega^{-2} & \omega^{-3} & .... & \omega^1\\
+		\end{pmatrix}
+	\end{equation}
+	Now,
+	\begin{equation}
+		F_{rs}L^{rs}_r=
+		\begin{pmatrix}
+			1 & 1 & 1 & 1 & ..... & 1 \\
+			1 & \omega^{r} & \omega^{2r} & \omega^{3r} & .... & \omega^{-1} \\
+			1 & \omega^{2r} & \omega^{4r} & \omega^{6r} & .... & \omega^{-2} \\
+			...& ...&...&...&....&...\\
+			1 & \omega^{r^2} & \omega^{2r^2} & \omega^{3r^2} & .... & \omega^{-2r}\\
+			...& ...&...&...&....&...\\
+			1 & \omega^{2r^2} & \omega^{4r^2} & \omega^{6r^2} & .... & \omega^{-4r}\\
+			...& ...&...&...&....&...\\
+			1 & \omega^{-r} & \omega^{-2r} & \omega^{-3r} & .... & \omega^1\\
+		\end{pmatrix}
+	\end{equation}
+	\begin{align}
+		F_{rs}L^{rs}_r&=\begin{pmatrix}
+			\omega^{irj} &  \omega^{i(rj+1)} & \omega^{i(rj+2)} & ... & \omega^{i(rj+r-1)} \\
+			\omega^{(i+s)rj} &  \omega^{(i+s)(rj+1)} & \omega^{(i+s)(rj+2)} & ... & \omega^{(i+s)(rj+r-1)} \\
+			\omega^{(i+2s)rj} &  \omega^{(i+2s)(rj+1)} & \omega^{(i+2s)(rj+2)} & ... & \omega^{(i+2s)(rj+r-1)} \\
+			...& ...&...&...&...\\
+			\omega^{(i+(r-1)s)rj} &  \omega^{(i+(r-1)s)(rj+1)} & \omega^{(i+(r-1)s)(rj+2)} & ... & \omega^{(i+(r-1)s)(rj+r-1)} \\
+		\end{pmatrix}\\
+	&=\begin{pmatrix}
+		\omega^{irj} &  \omega^{irj}\omega^{i} & \omega^{irj}\omega^{2i} & ... & \omega^{irj}\omega^{i(r-1)} \\
+		\omega^{irj}\omega^{rsj} &  \omega^{irj}\omega^i\omega^{rsj}\omega^s & \omega^{irj}\omega^{2i}\omega^{rsj}\omega^{2s} & ... & \omega^{irj}\omega^{si}\omega^{-i}\omega^{rsj}\omega^{sr}\omega^{-s} \\
+		\omega^{irj}\omega^{2rsj} &  \omega^{irj}\omega^i\omega^{2rsj}\omega^{2s} & \omega^{irj}\omega^{2i}\omega^{2rsj}\omega^{4s} & ... & \omega^{irj}\omega^{si}\omega^{-i}\omega^{2rsj}\omega^{2sr}\omega^{-2s}\\
+		...& ...&...&...&...\\
+	\end{pmatrix}
+	\end{align}
+	Now as $\omega^{rs}=1$,
+	\begin{equation}
+		F_{rs}L^{rs}_r=\begin{pmatrix}
+			\omega^{irj} &  \omega^{irj}\omega^{i} & \omega^{irj}\omega^{2i} & ... & \omega^{irj}\omega^{i(s-1)} \\
+			\omega^{irj} &  \omega^{irj}\omega^i\omega^s & \omega^{irj}\omega^{2i}\omega^{2s} & ... & \omega^{irj}\omega^{si}\omega^{-i}\omega^{-s} \\
+			\omega^{irj} &  \omega^{irj}\omega^i\omega^{2s} & \omega^{irj}\omega^{2i}\omega^{4s} & ... & \omega^{irj}\omega^{si}\omega^{-i}\omega^{-2s}\\
+			...& ...&...&...&...\\
+		\end{pmatrix}
+	\end{equation}
+	\begin{equation}
+		\omega_{rs}^{irj}=\omega_{s}^{ij}=F_r
+	\end{equation}
+	\begin{equation}
+		\omega_{rs}^i=W_{r}
+	\end{equation}
+	Huh, isn't this the top part of $W_{rs}$?
+	\begin{equation}
+		\omega_{rs}^s=\omega_{s}
+	\end{equation}
+	\begin{equation}
+		F_{rs}L^{rs}_r=\begin{pmatrix}
+			F_r & F_rW_r & F_rW_r^2 & ... & F_rW_r^(s-1) \\
+			F_r & F_rW_r\omega_s & F_rW_r^2\omega_s^2 & ... & F_rW_r^{s-1}\omega_s^{-1} \\
+			F_r & F_rW_r\omega_s^2 & F_rW_r^2\omega_s^4 & ... &
+			F_rW_r^{s-1}\omega_s^{-2} \\
+			...& ...&...&...&...\\
+			F_r & F_rW_r\omega_s^{-1} &F_rW_r^2\omega_s^{-2} & ... & F_rW_r^{s-1}\omega_s
+			
+		\end{pmatrix}
+	\end{equation}
+There seems to be structure here. Like if we look at the $\omega$s it's almost like in the middle we have $F_rW_r$ with a tensor product of $F_s$ but with $W_r$ to some powers.
+
+	Now,
+	\begin{equation}
+		 I_s \otimes F_r = \begin{pmatrix}
+			F_r & 0 & 0 &... \\
+			0 & F_r & 0 & ... \\
+			... & ... & ... & ... \\
+			0& 0 & 0 & ... & F_r
+		\end{pmatrix}
+	\end{equation}
+
+	\begin{equation}
+		T^{rs}_s = \begin{pmatrix}
+			W_s^0 & 0 & 0 & .... \\
+			0 & W_s^1 & 0 & .... \\
+			0 & 0 & W_s^2 & .... \\
+			.. & .. & .. & ... \\
+			0 & 0 & 0 & W_s^{r-1}
+		\end{pmatrix}
+	\end{equation}
+	When these are multiplied together we have
+	\begin{equation}
+		T^{rs}_s(I_s \otimes F_r)=
+		 \begin{pmatrix}
+			F_r & 0 & 0 & .... \\
+			0 & F_rW_s & 0 & .... \\
+			0 & 0 & F_rW_s^2 & .... \\
+			.. & .. & .. & ... \\
+			0 & 0 & 0 & F_rW_s^{r-1}
+		\end{pmatrix}
+	\end{equation}
+	Now, 
+	\begin{equation}
+		F_s \otimes I_r = \begin{pmatrix}
+			I_r & I_r & .... & I_r \\
+			I_r & \omega_sI_r & ... & \omega_s^{-1}I_r \\
+			... & .... & ... & ... \\
+			I_r & \omega_s^{-1}I_r & ... & \omega_sI_r
+		\end{pmatrix}
+	\end{equation}
+	Now, when we combine this all together we have
+	\begin{equation}
+		\begin{pmatrix}
+			F_r & F_rW_r & F_rW_r^2 & ... & F_rW_r^(s-1) \\
+			F_r & F_rW_r\omega_s & F_rW_r^2\omega_s^2 & ... & F_rW_r^{s-1}\omega_s^{-1} \\
+			F_r & F_rW_r\omega_s^2 & F_rW_r^2\omega_s^4 & ... &
+			F_rW_r^{s-1}\omega_s^{-2} \\
+			...& ...&...&...&...\\
+			F_r & F_rW_r\omega_s^{-1} &F_rW_r^2\omega_s^{-2} & ... & F_rW_r^{s-1}\omega_s
+			
+		\end{pmatrix}
+	\end{equation}
+
+	\begin{equation}
+	\dfrac{C[x]}{X^{rs}-1}
+	\end{equation}
+	with fft
+	$F_r \otimes I_s$
+	\begin{equation}
+		\prod_{i=0}^{r-1} \dfrac{C[x]}{X^s-\omega_r^i}
+	\end{equation}
+	example
+	\begin{equation}
+		x^5+x^{4}+x^3+x^2+x+1
+	\end{equation}
+	mod $x^3-\alpha$
+	\begin{equation}
+		\alpha x^2 + \alpha x + \alpha + x^2 + x _ 1
+	\end{equation}
+	
+	We are grouping together chunks of size 3.
+	
+	When we do dft, we evaluate the rs size vector at each $\omega^i$ for each ith power.
+	
+	Then we make $x \to \omega_R^iX$
+	
+	$r=3, s=2$.
+	
+	\begin{equation}
+		x^6-1=(x^2-1)(x^2-\omega)(x^2-\omega^2)
+	\end{equation}
+	These polynomials are
+	\begin{equation}
+		f_0+f_x ...+f_5x^5
+	\end{equation}
+	this mod $x^2-\omega^i$ then we get
+	\begin{equation}
+		f_0+f_2+f_4 +(f_1+f_3+f_5)x
+	\end{equation}
+	if we have the coefficients as vectors
+	\begin{equation}
+		f_0, f_2, f_4, f_1, f_3, f_5
+	\end{equation}
+	Then we group together as
+	\begin{equation}
+		f_0+f_2+f_4, f_1+f_3+f_5
+	\end{equation}
+	This is $1, 1, 1 \otimes I_2$. This works as when multiplied with $(f_0, f_1,....f_5)$ we get the vector of size 2 which is the 
+	If $\omega$ we get
+	\begin{equation}
+		f_0+f_2\omega+f_4\omega^2 +(f_1+f_3\omega+f_5\omega^2)x
+	\end{equation}
+	This is the same as
+	\begin{equation}
+		F_r \otimes I_s
+	\end{equation}
+	\begin{equation}
+		(x^2-\omega^i)
+	\end{equation}
+	is
+	\begin{equation}
+		\begin{pmatrix}
+			1 & 0 \\
+			0 & \omega^i
+		\end{pmatrix}
+		\begin{pmatrix}
+			f_0 \\
+			f_1
+		\end{pmatrix}
+	\end{equation}
+	since after reduction we just have $f_0+f_1\omega^ix$.
+	
+	to get rid of $\omega$
+	\begin{equation}
+		\prod_{i=0}^{r-1} \dfrac{C[x]}{X^s-\omega_r^i}
+	\end{equation}
+	we take it out using the matrix in dfft.
+	Then we can make a matrix
+	\begin{equation}
+		\begin{pmatrix}
+			1 & 0 & .... \\
+			0 & 1 & .... \\
+			.. & .. & 1 & 0 \\
+			..& .. & 0 &  \omega \\
+			...
+		\end{pmatrix}
+	\end{equation}
+	Which is triangle matrix! Once we project this out we get
+	
+	\begin{equation}
+		\prod_{i=0}^{r-1} \dfrac{C[x]}{X^s-1}
+	\end{equation}
+	which is
+	\begin{equation}
+		I_r \otimes F_s
+	\end{equation}
+\end{document}

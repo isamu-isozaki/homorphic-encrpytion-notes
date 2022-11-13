@@ -1,4 +1,4 @@
-# Install script for directory: /Users/jparlett/Documents/helib/homorphic-encrpytion-notes/helib_basics
+# Install script for directory: /Users/jparlett/Documents/helib/homorphic-encrpytion-notes/helib_demo
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/jparlett/Documents/helib/homorphic-encrpytion-notes/helib_basics/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/jparlett/Documents/helib/homorphic-encrpytion-notes/helib_demo/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

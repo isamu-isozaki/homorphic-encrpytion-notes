@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/Users/jparlett/Documents/helib/homorphic-encrpytion-notes/helib_basics/ckks_demo.cpp" "CMakeFiles/ckks_demo.dir/ckks_demo.cpp.o" "gcc" "CMakeFiles/ckks_demo.dir/ckks_demo.cpp.o.d"
+  "/Users/jparlett/Documents/helib/homorphic-encrpytion-notes/helib_demo/ckks_demo.cpp" "CMakeFiles/ckks_demo.dir/ckks_demo.cpp.o" "gcc" "CMakeFiles/ckks_demo.dir/ckks_demo.cpp.o.d"
   )
 
 # Targets to which this target links.

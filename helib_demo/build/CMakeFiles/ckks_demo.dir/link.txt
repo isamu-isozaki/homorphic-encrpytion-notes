@@ -1,0 +1,1 @@
+/Library/Developer/CommandLineTools/usr/bin/c++  -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/ckks_demo.dir/ckks_demo.cpp.o -o ckks_demo  -Wl,-rpath,/usr/local/helib_pack/lib /usr/local/helib_pack/lib/libhelib.a /usr/local/helib_pack/lib/libntl.dylib /usr/local/helib_pack/lib/libgmp.dylib 

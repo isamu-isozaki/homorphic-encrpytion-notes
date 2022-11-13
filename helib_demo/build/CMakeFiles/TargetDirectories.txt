@@ -1,0 +1,3 @@
+/Users/jparlett/Documents/helib/homorphic-encrpytion-notes/helib_basics/build/CMakeFiles/ckks_demo.dir
+/Users/jparlett/Documents/helib/homorphic-encrpytion-notes/helib_basics/build/CMakeFiles/edit_cache.dir
+/Users/jparlett/Documents/helib/homorphic-encrpytion-notes/helib_basics/build/CMakeFiles/rebuild_cache.dir

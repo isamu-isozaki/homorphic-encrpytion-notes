@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{program}
+\usepackage{mathtools}
+\usepackage{float}
+\usepackage{fancyvrb}
+\usepackage{amsfonts}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\begin{document}
+	\begin{equation}
+		F_8 = (F_4 \otimes I_2)T^{8}_2(I_4 \otimes F_2)L^8_4
+	\end{equation}
+	\begin{equation}
+		=((F_2 \otimes I_2)T^4_2(I_2 \otimes F_2)L^4_2 \otimes I_2)T^8_2 (I_4 \otimes F_2)L^8_4
+	\end{equation}
+	There's always 2 on the bottom of the twiddle factor.
+	\begin{equation}
+		=((F_2 \otimes I_4)(T^4_2 \otimes I_2)(I_2 \otimes F_2 \otimes I_2)(L^4_2 \otimes I_2)T^8_2 (I_4 \otimes F_2)
+	\end{equation}
+	\begin{equation}
+		=((F_2 \otimes I_4)(T^4_2 \otimes I_2)(I_2 \otimes F_2 \otimes I_2)(L^4_2 \otimes I_2)T^8_2 (I_4 \otimes F_2)(L^8_4L^8_4)
+	\end{equation}
+	and if we commute
+	
+	\begin{equation}
+		L^4_2 = R_{4}
+	\end{equation}
+	\begin{equation}
+		L^8_4 = R_8
+	\end{equation}
+	Generalization
+	
+	\begin{equation}
+		F_{2^t} = \prod^{t}_{c=1}(R_{2^{c-1}} \otimes I_{2^{t-c+1}})(T^{2c}_2 \otimes I_{2^{t-c}})(R_{2^{c=1}} \otimes I_{2^{t-c+1}})(I_{2^{c-1}} \otimes F_2 \otimes I_{2^{t-c}})R_{2^t}
+	\end{equation}
+	Can be proven with induction
+	
+	Now the twiddle is
+	\begin{align}
+		(R_{2^{c-1}} \otimes I_{2^{t-c+1}})(T^{2c}_2 \otimes I_{2^{t-c}})(R_{2^{c=1}} \otimes I_{2^{t-c+1}})(I_{2^{c-1}} \otimes F_2 \otimes I_{2^{t-c}}) &=\\
+		(R_{2^{c-1}} \otimes I_{2^{t-c+1}})(T^{2c}_2 \otimes I_{2^{t-c}})(R_{2^{c=1}} \otimes I_{2^{t-c+1}})L^{2^t}_{2^{c-1}}(F_2 \otimes I_{2^{t-1}})L^{2^t}L^{2^t}_2L^{2^t}_{2^{t-c}} &= \\
+		L^{2^t}_{2^{t-c+1}}(R_{2^{c-1}} \otimes I_{2^{t-c+1}})(T^{2c}_2 \otimes I_{2^{t-c}})(R_{2^{c=1}} \otimes I_{2^{t-c+1}})L^{2^t}_{2^{c-1}}(F_2 \otimes I_{2^{t-1}})L^{2^t}L^{2^t}_2 &= \\
+		(I_{2^{t-c+1}} \otimes R_{2^{c-1}})L^{2^t}_2(I_{2^{t-c}} \otimes T^{2c}_2 )L^{2^t}_{2^{t-1}}(I_{2^{t-c+1}} \otimes R_{2^{c=1}})L^{2^t}_{2^{c-1}}(F_2 \otimes I_{2^{t-1}})L^{2^t}L^{2^t}_2
+	\end{align}
+\end{document}

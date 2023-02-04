@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.12) (preloaded format=pdflatex 2021.1.19)  13 NOV 2022 15:47
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.12) (preloaded format=pdflatex 2021.1.19)  21 NOV 2022 18:41
 entering extended mode
-**./basic-homomorphic-encryption-overview.tex
-(basic-homomorphic-encryption-overview.tex
+**"./patrick presentation.tex"
+("patrick presentation.tex"
 LaTeX2e <2020-10-01> patch level 4
 L3 programming layer <2021-01-09> xparse <2020-03-03>
 ("D:\Program Files\miktex\tex/latex/base\article.cls"
@@ -250,8 +250,8 @@ File: l3backend-pdftex.def 2021-01-09 L3 backend support: PDF output (pdfTeX)
 \l__kernel_color_stack_int=\count278
 \l__pdf_internal_box=\box54
 )
-(basic-homomorphic-encryption-overview.aux)
-\openout1 = `basic-homomorphic-encryption-overview.aux'.
+("patrick presentation.aux")
+\openout1 = `"patrick presentation.aux"'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 14.
 LaTeX Font Info:    ... okay on input line 14.
@@ -286,45 +286,45 @@ Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 85.
 )
-Overfull \hbox (7.47298pt too wide) in paragraph at lines 15--16
-[]\OT1/cmr/m/n/10 Thanks to https://blog.openmined.org/ckks-explained-part-3-en
-cryption-and-
- []
+LaTeX Font Info:    Trying to load font information for U+msa on input line 15.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 21.
 
 ("D:\Program Files\miktex\tex/latex/amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 21.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 15.
 
 
 ("D:\Program Files\miktex\tex/latex/amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1
+)
+Overfull \hbox (12.59212pt too wide) detected at line 49
+[]
+ []
 
-{C:/Users/isamu/AppData/Local/MiKTeX/pdftex/config/pdftex.map}] [2] [3]
-(basic-homomorphic-encryption-overview.aux) ) 
+[1
+
+{C:/Users/isamu/AppData/Local/MiKTeX/pdftex/config/pdftex.map}]
+("patrick presentation.aux") ) 
 Here is how much of TeX's memory you used:
  3449 strings out of 479618
- 48806 string characters out of 2874902
- 339456 words of memory out of 3000000
+ 48647 string characters out of 2874902
+ 339426 words of memory out of 3000000
  20598 multiletter control sequences out of 15000+200000
  407398 words of font info for 43 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 68i,5n,74p,313b,131s stack positions out of 5000i,500n,10000p,200000b,50000s
-<D:/Program Files/miktex/fonts/typ
-e1/public/amsfonts/cm/cmex10.pfb><D:/Program Files/miktex/fonts/type1/public/am
-sfonts/cm/cmmi10.pfb><D:/Program Files/miktex/fonts/type1/public/amsfonts/cm/cm
-mi7.pfb><D:/Program Files/miktex/fonts/type1/public/amsfonts/cm/cmr10.pfb><D:/P
-rogram Files/miktex/fonts/type1/public/amsfonts/cm/cmr7.pfb><D:/Program Files/m
-iktex/fonts/type1/public/amsfonts/cm/cmsy10.pfb><D:/Program Files/miktex/fonts/
-type1/public/amsfonts/cm/cmsy7.pfb><D:/Program Files/miktex/fonts/type1/public/
-amsfonts/symbols/msbm10.pfb>
-Output written on basic-homomorphic-encryption-overview.pdf (3 pages, 87308 byt
-es).
+ 68i,9n,74p,242b,131s stack positions out of 5000i,500n,10000p,200000b,50000s
+<D:/Program Files/miktex/fonts/type1/public/amsfo
+nts/cm/cmex10.pfb><D:/Program Files/miktex/fonts/type1/public/amsfonts/cm/cmmi1
+0.pfb><D:/Program Files/miktex/fonts/type1/public/amsfonts/cm/cmmi5.pfb><D:/Pro
+gram Files/miktex/fonts/type1/public/amsfonts/cm/cmmi7.pfb><D:/Program Files/mi
+ktex/fonts/type1/public/amsfonts/cm/cmr10.pfb><D:/Program Files/miktex/fonts/ty
+pe1/public/amsfonts/cm/cmr5.pfb><D:/Program Files/miktex/fonts/type1/public/ams
+fonts/cm/cmr7.pfb><D:/Program Files/miktex/fonts/type1/public/amsfonts/cm/cmsy1
+0.pfb><D:/Program Files/miktex/fonts/type1/public/amsfonts/cm/cmsy5.pfb>
+Output written on "patrick presentation.pdf" (1 page, 83098 bytes).
 PDF statistics:
- 44 PDF objects out of 1000 (max. 8388607)
+ 42 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,5 +1,5 @@
 CMakeFiles/ckks_demo.dir/ckks_demo.cpp.o: \
-  /Users/jparlett/Documents/helib/homorphic-encrpytion-notes/helib_basics/ckks_demo.cpp \
+  /Users/jparlett/Documents/helib/homorphic-encrpytion-notes/helib_demo/ckks_demo.cpp \
   /usr/local/helib_pack/include/helib/helib.h \
   /usr/local/helib_pack/include/helib/version.h \
   /usr/local/helib_pack/include/helib/DoubleCRT.h \

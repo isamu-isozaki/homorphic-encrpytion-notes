@@ -19,6 +19,7 @@ int main(int argc, char* argv[])
   Context context =
       ContextBuilder<CKKS>().m(32 * 1024).bits(358).precision(20).c(6).build();
 
+    cout << "\n\n--------------------HOMOMORPHIC ADD/MULT--------------------\n\n";
     // the number of operation we can perform before decryption is impossible  
     cout << "securityLevel=" << context.securityLevel() << "\n";
 
@@ -79,4 +80,43 @@ int main(int argc, char* argv[])
     cout << "result" << endl;
     //print result
     printVec(v2,4);
+
+    cout << "\n\n--------------------DEPTH--------------------\n\n";
+    cout << "the number of operations we can perform on ciphertext is limited by the parameters we choose for the context object";
+    cout << "c = encrypted(<2,0,0,...>)" << endl;
+    cout << "capacity is related to the number of homomorphic operations we can perform, it decreases as we perform more" << endl;
+    cout << "capacity of c" << endl;
+    cout << c0.capacity() << endl;
+    cout << "multiplication reduces capacity faster than addition" << endl;
+    cout << "capacity of c + c" << endl;
+    c0 += c0;
+    cout << c0.capacity() << endl;
+    cout << "capacity of c^2" << endl;
+    c0 *= c0;
+    cout << c0.capacity() << endl;
+
+    cout << "lets decrypt and look at error" << endl;;
+    p2.decrypt(c0,secretKey);
+    p2.store(v2);
+    cout << "should be: " << pow(4,2) << " actual: ";
+    printVec(v2,4); 
+
+
+    c0 *= c0; //c^4
+    c0 *= c0; //c^8
+    c0 *= c0; //c^16
+    c0 *= c0; //c^32
+    c0 *= c0; //c^64
+    c0 *= c0; //c^128
+    c0 *= c0; //c^256, any further and we will be unable to encrypt due to to much noise
+    cout << "capacity of c^256" << endl;
+    cout << c0.capacity() << endl;
+    cout << "lets decrypt and look at error" << endl;;
+    p2.decrypt(c0,secretKey);
+    p2.store(v2);
+    cout << "should be: " << pow(4,256) << " actual: ";
+    printVec(v2,4); 
+
+
+
 }
